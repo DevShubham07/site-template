@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { SITE } from "../../site.config.mjs";
+---
+
+<Base
+  title={`About Us — ${SITE.name}`}
+  description={`Who builds and maintains ${SITE.name}, and why it exists.`}
+>
+  <Fragment slot="head">
+    <JsonLd breadcrumbs={[{ name: "Home", path: "/" }, { name: "About Us" }]} />
+  </Fragment>
+
+  <h1 class="text-3xl font-bold tracking-tight">About Us</h1>
+  <div class="mt-6 max-w-2xl space-y-4 text-(--color-fg-muted)">
+    <p>
+      {SITE.name} is a free, browser-based utility built and maintained by {SITE.legalName}. Our
+      goal is simple: solve one small, real-world problem exceptionally well — fast, accurate,
+      private, and free.
+    </p>
+    <p>
+      Everything runs directly in your browser. We don't require accounts, we don't store the
+      data you enter into the tool, and the site works on any modern device.
+    </p>
+    <p>
+      Have feedback or found a bug? We genuinely want to hear it — reach us through the
+      <a href="/contact/" class="text-(--color-accent) underline-offset-2 hover:underline">contact page</a>.
+    </p>
+  </div>
+</Base>

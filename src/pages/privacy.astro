@@ -1,0 +1,75 @@
+---
+import Base from "../layouts/Base.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { SITE } from "../../site.config.mjs";
+const updated = "2026-07-14";
+---
+
+<Base
+  title={`Privacy Policy — ${SITE.name}`}
+  description={`How ${SITE.name} handles data: what we collect, what we don't, cookies, analytics, and advertising.`}
+>
+  <Fragment slot="head">
+    <JsonLd breadcrumbs={[{ name: "Home", path: "/" }, { name: "Privacy Policy" }]} />
+  </Fragment>
+
+  <h1 class="text-3xl font-bold tracking-tight">Privacy Policy</h1>
+  <p class="mt-1 text-sm text-(--color-fg-muted)">Last updated: {updated}</p>
+
+  <div class="mt-6 max-w-2xl space-y-6 text-(--color-fg-muted)">
+    <section>
+      <h2 class="text-xl font-semibold text-(--color-fg)">The short version</h2>
+      <p class="mt-2">
+        The tool on this site runs entirely in your browser. The values you enter into it are
+        processed on your device and are never uploaded to our servers or stored by us.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold text-(--color-fg)">Analytics</h2>
+      <p class="mt-2">
+        We use privacy-friendly, cookie-less analytics (Vercel Web Analytics) to count page views
+        and understand aggregate usage — for example, which pages are visited and from which
+        country. This data is anonymous and cannot be used to identify you.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold text-(--color-fg)">Advertising</h2>
+      <p class="mt-2">
+        This site may display advertising served by Google AdSense. Google and its partners may
+        use cookies or similar technologies to serve ads based on your visits to this and other
+        websites. Where required (for example, in the European Economic Area, the United Kingdom,
+        and Switzerland), you will be asked for consent before any advertising cookies are set,
+        via a Google-certified consent management platform. You can learn how Google uses data
+        from sites like this one at
+        <a
+          href="https://policies.google.com/technologies/partner-sites"
+          class="text-(--color-accent) underline-offset-2 hover:underline"
+          rel="noopener noreferrer"
+          target="_blank">policies.google.com/technologies/partner-sites</a
+        >.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold text-(--color-fg)">Error monitoring</h2>
+      <p class="mt-2">
+        If a page crashes, an anonymous error report (browser type, page URL, error message) may
+        be collected so we can fix the bug. These reports contain no personal data and no tool
+        inputs.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-semibold text-(--color-fg)">Contact</h2>
+      <p class="mt-2">
+        Questions about this policy? Email
+        <a
+          href={`mailto:${SITE.contactEmail}`}
+          class="text-(--color-accent) underline-offset-2 hover:underline">{SITE.contactEmail}</a
+        >.
+      </p>
+    </section>
+  </div>
+</Base>

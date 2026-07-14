@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* Class-based dark mode (Tailwind v4): `dark:` utilities apply when a
+   `.dark` class is present on <html>. Toggled by ThemeToggle.astro with
+   localStorage persistence; the inline script in Base.astro prevents FOUC. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Design tokens — see factory-core/docs/design-spec.md.
+     Vercel-like neutral palette, WCAG AA contrast floors. */
+  --color-bg: #ffffff;
+  --color-bg-subtle: #fafafa;
+  --color-fg: #171717;
+  --color-fg-muted: #525252;
+  --color-border: #e5e5e5;
+  --color-accent: #0070f3;
+  --color-accent-fg: #ffffff;
+}
+
+.dark {
+  --color-bg: #0a0a0a;
+  --color-bg-subtle: #171717;
+  --color-fg: #ededed;
+  --color-fg-muted: #a3a3a3;
+  --color-border: #262626;
+  --color-accent: #3291ff;
+  --color-accent-fg: #0a0a0a;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-subtle: var(--color-bg-subtle);
+  --color-fg: var(--color-fg);
+  --color-fg-muted: var(--color-fg-muted);
+  --color-border: var(--color-border);
+  --color-accent: var(--color-accent);
+  --color-accent-fg: var(--color-accent-fg);
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-accent-fg);
+}

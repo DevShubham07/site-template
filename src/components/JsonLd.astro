@@ -1,0 +1,54 @@
+---
+/**
+ * Compliant JSON-LD for tool sites (design doc §13.4):
+ * WebApplication (offers.price 0, NO rating/review fields — fabricated
+ * ratings risk a Google manual action), plus Organization on the home page
+ * and BreadcrumbList on subpages.
+ */
+import { SITE, SITE_URL } from "../../site.config.mjs";
+
+export interface Props {
+  /** Include Organization markup (home page only). */
+  organization?: boolean;
+  /** Breadcrumb trail: [{ name, path? }] — last item may omit path. */
+  breadcrumbs?: { name: string; path?: string }[];
+}
+
+const { organization = false, breadcrumbs } = Astro.props;
+
+const webApplication = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: SITE.name,
+  url: SITE_URL,
+  description: SITE.description,
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "Any",
+  browserRequirements: "Requires JavaScript",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
+
+const org = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE.legalName,
+  url: SITE_URL,
+};
+
+const breadcrumbList = breadcrumbs
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbs.map((crumb, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: crumb.name,
+        ...(crumb.path ? { item: new URL(crumb.path, SITE_URL).href } : {}),
+      })),
+    }
+  : null;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(webApplication)} />
+{organization && <script type="application/ld+json" set:html={JSON.stringify(org)} />}
+{breadcrumbList && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbList)} />}

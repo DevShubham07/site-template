@@ -1,0 +1,16 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    # Reusable fleet CI — patched once in ci-templates, inherited everywhere.
+    # REPLACE_ORG is rewritten by automation/new-site.mjs at scaffold time.
+    uses: REPLACE_ORG/ci-templates/.github/workflows/astro-ci.yml@v1
+    secrets: inherit

@@ -1,0 +1,29 @@
+---
+import Base from "../layouts/Base.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { SITE } from "../../site.config.mjs";
+---
+
+<Base
+  title={`Contact Us — ${SITE.name}`}
+  description={`How to reach the team behind ${SITE.name} with questions, feedback, or bug reports.`}
+>
+  <Fragment slot="head">
+    <JsonLd breadcrumbs={[{ name: "Home", path: "/" }, { name: "Contact Us" }]} />
+  </Fragment>
+
+  <h1 class="text-3xl font-bold tracking-tight">Contact Us</h1>
+  <div class="mt-6 max-w-2xl space-y-4 text-(--color-fg-muted)">
+    <p>
+      Questions, feedback, feature requests, or bug reports — we read everything.
+    </p>
+    <p>
+      Email us at
+      <a
+        href={`mailto:${SITE.contactEmail}`}
+        class="text-(--color-accent) underline-offset-2 hover:underline">{SITE.contactEmail}</a
+      >
+      and we'll get back to you as soon as we can.
+    </p>
+  </div>
+</Base>

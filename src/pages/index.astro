@@ -1,0 +1,57 @@
+---
+/**
+ * Home page: tool above the fold + ≥600-word SEO copy slot + visible FAQ.
+ * At P4 (build phase) the TOOL AREA below is replaced by the site's actual
+ * tool per spec.md; the copy and FAQ are filled at P5 per the keyword map.
+ */
+import Base from "../layouts/Base.astro";
+import JsonLd from "../components/JsonLd.astro";
+import FaqSection from "../components/FaqSection.astro";
+import { SITE } from "../../site.config.mjs";
+
+const faqItems = [
+  {
+    question: `What is ${SITE.name}?`,
+    answer:
+      "This is placeholder FAQ content. It is replaced at P5 with real questions harvested from keyword research (Ahrefs Questions tab + People Also Ask).",
+  },
+  {
+    question: "Is this tool free?",
+    answer: "Yes — every tool built from this template is free to use, with no sign-up required.",
+  },
+];
+---
+
+<Base title={SITE.name} description={SITE.description}>
+  <Fragment slot="head">
+    <JsonLd organization />
+  </Fragment>
+
+  <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{SITE.name}</h1>
+  <p class="mt-2 max-w-2xl text-(--color-fg-muted)">{SITE.description}</p>
+
+  <!-- ══════════ TOOL AREA (replaced at P4 per spec.md) ══════════ -->
+  <section
+    id="tool"
+    aria-label="Tool"
+    class="mt-8 rounded-xl border border-(--color-border) bg-(--color-bg-subtle) p-8 text-center"
+  >
+    <p class="text-(--color-fg-muted)">
+      Tool placeholder — implemented at build phase (P4) per <code>spec.md</code>.
+    </p>
+  </section>
+  <!-- ══════════ /TOOL AREA ══════════ -->
+
+  <!-- ══════════ SEO COPY (≥600 words, filled at P5) ══════════ -->
+  <article class="prose-custom mt-12 max-w-none">
+    <h2 class="text-2xl font-semibold tracking-tight">About this tool</h2>
+    <p class="mt-3 text-(--color-fg-muted)">
+      Placeholder copy. At P5 this section receives at least 600 words of genuinely useful
+      explanatory content (how the tool works, accuracy notes, use cases) written around the
+      keyword map — pure tool pages without textual content rarely rank.
+    </p>
+  </article>
+  <!-- ══════════ /SEO COPY ══════════ -->
+
+  <FaqSection items={faqItems} />
+</Base>

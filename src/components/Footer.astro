@@ -1,0 +1,18 @@
+---
+import { SITE } from "../../site.config.mjs";
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-16 border-t border-(--color-border)">
+  <div
+    class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-(--color-fg-muted) sm:flex-row"
+  >
+    <p>© {year} {SITE.legalName}. All rights reserved.</p>
+    <nav aria-label="Legal" class="flex flex-wrap items-center gap-4">
+      <a href="/privacy/" class="hover:text-(--color-fg)">Privacy Policy</a>
+      <a href="/terms/" class="hover:text-(--color-fg)">Terms &amp; Conditions</a>
+      <a href="/about/" class="hover:text-(--color-fg)">About Us</a>
+      <a href="/contact/" class="hover:text-(--color-fg)">Contact Us</a>
+    </nav>
+  </div>
+</footer>
