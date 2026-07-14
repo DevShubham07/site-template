@@ -1,7 +1,7 @@
 # site-template
 
 GitHub **template repository** for the micro-tool website factory. Every site
-starts as `gh repo create ORG/site-<slug> --template ORG/site-template`, then
+starts as `gh repo create DevShubham07/site-<slug> --template DevShubham07/site-template`, then
 `automation/new-site.mjs` (in `factory-core`) fills identity into
 [site.config.mjs](site.config.mjs) — the single file that holds name/domain/
 keyword. Pages, SEO tags, JSON-LD, robots.txt and the sitemap all derive from it.

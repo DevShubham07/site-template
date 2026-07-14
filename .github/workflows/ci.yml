@@ -11,6 +11,5 @@ concurrency:
 jobs:
   build-test:
     # Reusable fleet CI — patched once in ci-templates, inherited everywhere.
-    # REPLACE_ORG is rewritten by automation/new-site.mjs at scaffold time.
-    uses: REPLACE_ORG/ci-templates/.github/workflows/astro-ci.yml@v1
+    uses: DevShubham07/ci-templates/.github/workflows/astro-ci.yml@v1
     secrets: inherit
