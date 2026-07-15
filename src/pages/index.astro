@@ -24,17 +24,19 @@ const faqItems = [
 
 <Base title={SITE.name} description={SITE.description}>
   <Fragment slot="head">
-    <JsonLd organization />
+    <JsonLd organization webApplication />
   </Fragment>
 
-  <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{SITE.name}</h1>
-  <p class="mt-2 max-w-2xl text-(--color-fg-muted)">{SITE.description}</p>
+  <h1 class="text-gradient max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
+    {SITE.name}
+  </h1>
+  <p class="mt-3 max-w-2xl text-lg text-(--color-fg-muted)">{SITE.description}</p>
 
   <!-- ══════════ TOOL AREA (replaced at P4 per spec.md) ══════════ -->
   <section
     id="tool"
     aria-label="Tool"
-    class="mt-8 rounded-xl border border-(--color-border) bg-(--color-bg-subtle) p-8 text-center"
+    class="glass mt-8 rounded-2xl p-8 text-center"
   >
     <p class="text-(--color-fg-muted)">
       Tool placeholder — implemented at build phase (P4) per <code>spec.md</code>.

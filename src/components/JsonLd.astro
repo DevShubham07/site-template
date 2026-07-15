@@ -10,11 +10,14 @@ import { SITE, SITE_URL } from "../../site.config.mjs";
 export interface Props {
   /** Include Organization markup (home page only). */
   organization?: boolean;
+  /** Include WebApplication markup (the app's canonical page only — emitting
+   *  the same WebApplication entity on every URL is noisy duplication). */
+  webApplication?: boolean;
   /** Breadcrumb trail: [{ name, path? }] — last item may omit path. */
   breadcrumbs?: { name: string; path?: string }[];
 }
 
-const { organization = false, breadcrumbs } = Astro.props;
+const { organization = false, webApplication: includeWebApp = false, breadcrumbs } = Astro.props;
 
 const webApplication = {
   "@context": "https://schema.org",
@@ -49,6 +52,6 @@ const breadcrumbList = breadcrumbs
   : null;
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(webApplication)} />
+{includeWebApp && <script type="application/ld+json" set:html={JSON.stringify(webApplication)} />}
 {organization && <script type="application/ld+json" set:html={JSON.stringify(org)} />}
 {breadcrumbList && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbList)} />}

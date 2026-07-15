@@ -6,25 +6,38 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Design tokens — see factory-core/docs/design-spec.md.
-     Vercel-like neutral palette, WCAG AA contrast floors. */
-  --color-bg: #ffffff;
-  --color-bg-subtle: #fafafa;
-  --color-fg: #171717;
-  --color-fg-muted: #525252;
-  --color-border: #e5e5e5;
-  --color-accent: #0070f3;
+  /* Design tokens v2 — "quietly futuristic" (design-spec v0.2.0).
+     Indigo→violet accent carries text (AA-verified); cyan is decorative
+     only (glows, gradients) and never carries body text. */
+  --color-bg: #fafbff;
+  --color-bg-subtle: #f1f3fb;
+  --color-fg: #0f1222;
+  --color-fg-muted: #4b5068;
+  --color-border: #e2e5f1;
+  --color-accent: #4f46e5;
   --color-accent-fg: #ffffff;
+  --color-accent-soft: #eef0ff;
+  --color-glow-a: rgba(79, 70, 229, 0.14);
+  --color-glow-b: rgba(8, 145, 178, 0.1);
+  --surface-glass: rgba(255, 255, 255, 0.62);
+  --border-glass: rgba(15, 18, 34, 0.08);
+  --gradient-accent: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #0891b2 130%);
 }
 
 .dark {
-  --color-bg: #0a0a0a;
-  --color-bg-subtle: #171717;
-  --color-fg: #ededed;
-  --color-fg-muted: #a3a3a3;
-  --color-border: #262626;
-  --color-accent: #3291ff;
-  --color-accent-fg: #0a0a0a;
+  --color-bg: #07080f;
+  --color-bg-subtle: #0e1019;
+  --color-fg: #e8eaf6;
+  --color-fg-muted: #9aa0b8;
+  --color-border: #1d2030;
+  --color-accent: #818cf8;
+  --color-accent-fg: #07080f;
+  --color-accent-soft: #14162a;
+  --color-glow-a: rgba(99, 102, 241, 0.16);
+  --color-glow-b: rgba(34, 211, 238, 0.08);
+  --surface-glass: rgba(14, 16, 25, 0.55);
+  --border-glass: rgba(232, 234, 246, 0.09);
+  --gradient-accent: linear-gradient(135deg, #818cf8 0%, #a78bfa 55%, #22d3ee 130%);
 }
 
 @theme inline {
@@ -35,6 +48,7 @@
   --color-border: var(--color-border);
   --color-accent: var(--color-accent);
   --color-accent-fg: var(--color-accent-fg);
+  --color-accent-soft: var(--color-accent-soft);
 }
 
 html {
@@ -50,9 +64,87 @@ html {
     Arial,
     sans-serif;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 
 ::selection {
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
+}
+
+/* ── Ambient mesh glow — pure CSS, zero JS/images, fixed so it never
+      repaints on scroll. Low opacity: does not affect text contrast. ── */
+.mesh-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 28rem at 12% -8%, var(--color-glow-a), transparent 60%),
+    radial-gradient(38rem 26rem at 88% 4%, var(--color-glow-b), transparent 62%),
+    radial-gradient(30rem 22rem at 50% 110%, var(--color-glow-a), transparent 65%);
+}
+
+/* ── Glass surface: translucent card with hairline border + blur.
+      backdrop-filter is progressive enhancement (solid fallback first). ── */
+@utility glass {
+  background-color: var(--color-bg-subtle);
+  background-color: var(--surface-glass);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ── Gradient headline text (hero h1 / key numbers). Solid-color
+      fallback keeps AA if background-clip is unsupported. ── */
+@utility text-gradient {
+  color: var(--color-accent);
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Accent button with soft glow ── */
+@utility btn-accent {
+  background: var(--gradient-accent);
+  color: #ffffff;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  box-shadow: 0 0 0 1px rgb(79 70 229 / 0.25), 0 8px 24px -12px rgb(79 70 229 / 0.55);
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+.btn-accent:hover {
+  box-shadow: 0 0 0 1px rgb(79 70 229 / 0.4), 0 10px 32px -10px rgb(79 70 229 / 0.7);
+  transform: translateY(-1px);
+}
+.dark .btn-accent {
+  color: #07080f;
+  box-shadow: 0 0 0 1px rgb(129 140 248 / 0.35), 0 8px 28px -10px rgb(129 140 248 / 0.5);
+}
+
+/* Numeric outputs align like instruments */
+@utility nums {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Focus visibility, glow-flavoured (a11y: always visible, 2px min) */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 12px -2px var(--color-glow-a);
+}
+
+/* Reduced motion: kill the button lift + smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .btn-accent,
+  .btn-accent:hover {
+    transition: none;
+    transform: none;
+  }
 }

@@ -3,9 +3,13 @@ import { SITE } from "../../site.config.mjs";
 import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<header class="border-b border-(--color-border)">
+<header class="glass sticky top-0 z-10 border-b border-(--color-border)">
   <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-    <a href="/" class="text-lg font-semibold tracking-tight hover:opacity-80">
+    <a href="/" class="flex items-center gap-2 text-lg font-semibold tracking-tight hover:opacity-80">
+      <span
+        aria-hidden="true"
+        class="inline-block size-2.5 rounded-full"
+        style="background: var(--gradient-accent); box-shadow: 0 0 10px var(--color-glow-a);"></span>
       {SITE.name}
     </a>
     <nav aria-label="Main" class="flex items-center gap-5 text-sm text-(--color-fg-muted)">
