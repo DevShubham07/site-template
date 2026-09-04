@@ -21,8 +21,8 @@ export interface Props {
 const { title, description, image, noindex } = Astro.props;
 
 // Analytics scripts live at /_vercel/* — they only exist on Vercel hosting.
-// Including them in local/CI builds produces console 404s (fails the smoke
-// suite's zero-console-error gate), so gate on Vercel's build-time env var.
+// Including them in local/CI builds produces console 404s, so gate on
+// Vercel's build-time env var.
 const isVercel = !!process.env.VERCEL;
 ---
 

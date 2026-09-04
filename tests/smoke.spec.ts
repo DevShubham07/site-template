@@ -1,10 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 /**
- * Template smoke suite — runs unmodified against every scaffolded site (G3)
- * and is extended with tool-specific flows at P5. Assertions map to gates:
- * title/h1/console (G4-G5), legal links (AdSense prerequisite, G6),
- * canonical + JSON-LD presence (G6), mobile viewport (G5).
+ * Smoke suite covering: title/h1/console, legal page links, SEO invariants
+ * (canonical + JSON-LD + robots/sitemap), dark mode, mobile viewport, 404.
  */
 
 test("homepage renders with title, h1, and zero console errors", async ({ page }) => {
@@ -47,7 +45,7 @@ test("SEO invariants: canonical, meta description, JSON-LD, robots.txt, sitemap"
   const parsed = JSON.parse((await jsonLd.textContent()) ?? "{}");
   expect(parsed["@type"]).toBe("WebApplication");
   expect(parsed.offers?.price).toBe("0");
-  // Fabricated ratings are a policy violation (design doc §13.4)
+  // Fabricated ratings risk a Google manual action
   expect(parsed.aggregateRating).toBeUndefined();
   expect(parsed.review).toBeUndefined();
 

@@ -2,12 +2,11 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 /**
- * Axe accessibility gate (design doc §8 G5: 0 critical/serious).
+ * Axe accessibility suite: fails on any critical/serious violation.
  * Coverage: home (/) and a representative content page (/about/), at desktop
  * (1280px) and mobile (375px), each in light and dark mode (dark toggled by
  * adding the `.dark` class to <html>, mirroring ThemeToggle's mechanism).
- * Backported from site-monitorsizecalculator (template v0.2.0); sites extend
- * the page list with their tool/landing pages at P5.
+ * Extend PAGES below as new routes are added.
  */
 
 const PAGES = ["/", "/about/"];

@@ -3,7 +3,7 @@
   "headers": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "site-template.vercel.app" }],
+      "has": [{ "type": "host", "value": "leads-automation.vercel.app" }],
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
     }
   ]

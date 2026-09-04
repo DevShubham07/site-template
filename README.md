@@ -1,39 +1,26 @@
-# site-template
+# Leads Automation
 
-GitHub **template repository** for the micro-tool website factory. Every site
-starts as `gh repo create DevShubham07/site-<slug> --template DevShubham07/site-template`, then
-`automation/new-site.mjs` (in `factory-core`) fills identity into
-[site.config.mjs](site.config.mjs) — the single file that holds name/domain/
-keyword. Pages, SEO tags, JSON-LD, robots.txt and the sitemap all derive from it.
+Website for Leads Automation, built with Astro.
 
-## Rule
-
-This template must **always build and deploy green as-is** (design doc §4.4).
-CI on this repo enforces it — if a template change breaks the build, it never
-reaches the fleet.
-
-## Stack (pinned — design doc §5)
+## Stack
 
 Astro 7 (static) · Tailwind v4 via `@tailwindcss/vite` · `@astrojs/sitemap` ·
-`astro-favicons` · Vercel Web Analytics + Speed Insights · Playwright smoke
-suite · LHCI via reusable CI.
+`astro-favicons` · Vercel Web Analytics + Speed Insights · Playwright test suite.
 
 ## Layout
 
-- `site.config.mjs` — site identity (THE scaffold-time rewrite target)
-- `src/layouts/Base.astro` — Seo + dark-mode + header/footer + analytics
-- `src/components/` — Seo, JsonLd (WebApplication/no ratings), FaqSection (visible content, no FAQPage schema), Header, Footer, ThemeToggle
-- `src/pages/` — index (tool area + 600-word copy slot), privacy, terms, about, contact, 404, 500, robots.txt endpoint
-- `tests/smoke.spec.ts` — gate-mapped smoke suite (runs unmodified at G3)
-- `spec.md` — binding per-site specification template (G2)
-- `site.json` — per-site state machine record (design doc §3.3)
-- `.claude/skills/` — the factory prompt library (P-01…P-14)
+- `site.config.mjs` — site identity (name, domain, description, contact) used across pages
+- `src/layouts/Base.astro` — SEO + dark-mode + header/footer + analytics
+- `src/components/` — Seo, JsonLd, FaqSection, Header, Footer, ThemeToggle
+- `src/pages/` — home, privacy, terms, about, contact, 404, 500, robots.txt endpoint
+- `tests/` — Playwright smoke and accessibility (axe) suites
 
 ## Commands
 
 ```bash
 pnpm install
 pnpm dev        # local dev
-pnpm build      # must pass with zero sitemap "Skipping" warnings
-pnpm test       # Playwright smoke suite (builds preview server itself)
+pnpm build      # production build
+pnpm test       # Playwright suite (builds a preview server itself)
+pnpm check      # astro check (typecheck)
 ```
